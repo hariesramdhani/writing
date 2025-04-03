@@ -106,9 +106,9 @@ What I really enjoyed was hearing different viewpoints and comments, some of whi
 ## Conference day 3
 <figure>
   <img
-  src="06.png"
+  src="07.png"
   alt="Views from the island">
-  <span style="text-align:center; font-size: 0.75em;"><figcaption>Some photos I took while in the island</figcaption></span>
+  <span style="text-align:center; font-size: 0.75em;"><figcaption>Some photos I took while on the island</figcaption></span>
 </figure>
 Day 3 was probably one of the most anticipated days of the conference, as it featured the highly awaited excursion to the Brissago Islands on Lake Maggiore. We also had some fantastic talks and a panel discussion lined up. One talk I was particularly looking forward to was Gregory Grant's on "Addressing the Harsh Realities of Omics Benchmarking." I had enjoyed reading his paper on the challenges and best practices in omics benchmarking, so I was excited to hear him speak in person.
 
@@ -119,6 +119,12 @@ To get to the ferry, we had to take the stairs down from Monte Verita to the har
 We had our dinner at the hotel in the island. I had the chance to sit with Jarny, his students, Christof, Morritz, and Mark Robinson himself. The conversation was lively, with discussions about how food in Australia is superior to other places, something that sparked a lot of opinions! Morritz also shared that a few months ago he had spent four weeks in Indonesia recently because he loved to dive. We returned to Monte Verita around 9 PM, taking a bus from Ascona. It had been a long but incredibly fun and rewarding day, filled with beautiful sights, great conversations, and unforgettable experiences. It was exhausting but I think it was worth it.
 
 ## Conference final day
+<figure>
+  <img
+  src="08.png"
+  alt="Closing speech from Mark">
+  <span style="text-align:center; font-size: 0.75em;"><figcaption>Closing speech from Mark</figcaption></span>
+</figure>
 The last day of the conference had arrived. I initially thought to wake up early and go to the nearest Coop, which was a 20-minute walk away, to get some chocolates for my friends in the UK. However, time was too tight and if I wanted to attend all the sessions, I had to be really quick. In the end, I gave up on that idea and instead had my breakfast. The breakfast room was quieter than the usual, either everyone was still exhausted from the excursion the day before or it was just the usual gloom that comes with the final day of a conference.
 
 Despite that, we still had some great and engaging talks. I even got to be the mic runner for one of the sessions, where Mark was the chair. It was a fun experience and a nice way to wrap up the scientific part of the event. After the last session, we had lunch and started saying our goodbyes. I had to leave early from lunch because, apparently, I was the only one who hadn’t checked out of my room yet. I had booked the shuttle bus at 13:50, so I boarded it along with Hakime, Aybuge, Thomas, Olga, and Jarny. The ride was pleasant, and I spent most of it speaking Turkish with Hakime and Aybuge.
