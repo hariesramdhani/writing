@@ -3,6 +3,7 @@ title: Schengen Visa, Benchmarking and Ascona 2025
 description: My experience attending Ascona 2025, Modern benchmarking - advancing computational methods in molecular biology.
 date: 2025-04-03
 tags: [conference, ascona2025]
+thumbnail: "01.png"
 ---
 <figure>
   <img

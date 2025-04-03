@@ -7,6 +7,21 @@
 		<meta name="description" content="{{ description or metadata.description }}">
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
 
+		<!-- Other meta tags -->
+		<!-- Open Graph / Social Media Meta Tags -->
+		<meta property="og:title" content="{{ title }} | Your Blog Name" />
+		<meta property="og:description" content="{{ description or 'A blog about awesome things' }}" />
+		<meta property="og:type" content="article" />
+		<meta property="og:url" content="{{ page.url | absoluteUrl }}" />
+		<meta property="og:image" content="{{ thumbnail or '/default-image.jpg' | absoluteUrl }}" />
+
+		<!-- Twitter Card Meta Tags -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="{{ title }} | Your Blog Name" />
+		<meta name="twitter:description" content="{{ description or 'A blog about awesome things' }}" />
+		<meta name="twitter:image" content="{{ thumbnail or '/default-image.jpg' | absoluteUrl }}" />
+
+
 		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
 		{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
 
