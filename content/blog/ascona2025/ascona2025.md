@@ -4,11 +4,24 @@ description: My experience attending Ascona 2025, Modern benchmarking - advancin
 date: 2025-04-03
 tags: [conference, ascona2025]
 ---
-(placeholder Image of Ascona 2025)
+<figure>
+  <img
+  src="01.png"
+  alt="Ascona 2025 group photo">
+  <span style="text-align:center; font-size: 0.75em;"><figcaption>Ascona 2025 group photo</figcaption></span>
+</figure>
+
 In around mid October 2025, Mike (my supervisor) sent me a [tweet](https://x.com/markrobinsonca/status/1845061321076756897) that Mark Robinson had posted about Ascona 2025, a conference about benchmarking computational biology methods. "This might interest you," he said. A conference dedicated to only benchmarking? That's very niche and new, but also, kind of perfect. I had spent most of the first year of my PhD building a benchmarking tool and performing benchmarking for cell-to-cell communication (Ill refer it as CCC because its to mouthful to say!) inference methods from single-cell RNA sequencing data. And Switzerland? It never crossed my mind to go to Switzerland, so it'd would be a nice experience to travel and to meet like-minded people working on the same kinds of problems. ~~And my first conference and travelling alone? It will be nice to go into the wild and being independent (again)~~.
 
-(placeholder Image of which method should I use, CellChat, CellTalk, CellConversation, CellYapping)
 ## Benchmarking and why it matters
+
+<figure>
+  <img
+  src="02.png"
+  alt="Why benchmarking matters">
+  <span style="text-align:center; font-size: 0.75em;"><figcaption>Why benchmarking matters</figcaption></span>
+</figure>
+
 If you've ever worked in computational biology, or really, in any field with a flood of new methods, you'll realise why benchmarking is essential. Take my field (CCC) for example. More than a hundred methods have been developed to analyse how cells communicate with each other [Armingol et al., 2024](https://pubmed.ncbi.nlm.nih.gov/38238518/). It's great that we have that many methods developed, showing how eager people to contribute to the field, but the problem is with so many options, a fundamental question arises: *Which one should I use?*
 
 If you're developing a computational method as part of your PhD, you've probably heard the word *benchmarking* more times that you can count. In fact, if you plan to develop your own method, benchmarking is likely the first thing you'll need to do and pour all your souls into. Why? Because before deciding to build something new, you need to understand what already exists, its strengths, its weaknesses and where the knowledge gaps are.
@@ -19,10 +32,13 @@ Don't we have so many benchmarking already? I meant don't authors usually accomp
 
 Sounds awesome right? But the thing about benchmarking is that it's mostly overlooked (~~okay not really because benchmarking paper is like a citation generator~~). As far as I know Ascona 2025 will be the first conference dedicated to solely benchmarking computational methods in biology. Which is interesting because it will also be my first conference attendance outside of the UK as a PhD student. Okay enough with benchmarking introduction and let's focus on the fun ~~and stressful~~ part
 
-(placeholder Image of Mike do we have money)
-(placeholder of squirrels)
-
 ## Schengen visa application
+<figure>
+  <img
+  src="03.png"
+  alt="Edinburgh">
+  <span style="text-align:center; font-size: 0.75em;"><figcaption>Some photos that I took in Edinburgh</figcaption></span>
+</figure>
 As a non-EU international student from the UK, I have to apply for a visa to visit Switzerland since the UK is no longer part of the EU. This isn’t my first time applying for a business visa to an EU country, but it is the first time I’m applying without a travel agency.
 
 I remember seeing a broadcasted email from someone at my institute asking if anyone had recent experience applying for a Schengen visa to attend a conference. I decided to reach out and asked if she had received any responses. She told me that she had, but they were all bad stories (horror music starts). Her main advice was to apply as early as possible. Following her advice, I booked my appointment in December, well ahead of the Ascona 2025 conference (it starts on March 23rd). Surprisingly, there were plenty of available slots in January. Since I would be on vacation to Turkey until the end of January, I chose my appointment for January 29th.
@@ -34,6 +50,7 @@ Fast forward to the appointment day, my slot was at 12 PM but because it was my 
 So, I sprinted and sprinted ~~finally, I can use all those hours spent at ASV for something useful, not just for flexing on social media~~. When I arrived, I discovered I was the only person applying for a Swiss visa that day. The lady at the counter was very nice, but there were two small issues. First, the insurance I had purchased didn’t cover Switzerland, but luckily, I could buy the correct one there. Second, I didn’t have my share code with me, so I had to pay an extra £15 to retrieve it, which was mental considering I could have just got it myself in three seconds. The appointment itself was straightforward, though I found it odd that I still had to provide fingerprints despite having done so in the past 52 months. But overall, I was lucky, everyone was kind and helpful. After wrapping up the process, I headed back to the bus station, bought my ticket to Aberdeen, and called it a day.
 
 Three working days after my appointment, I got an email saying that my application has been approved and my visa has been granted, faster than what I expected. Because I chose the option to have the visa delivered to my flat, I didn't have to go back to Edinburgh to take it ~~as much as I love going to Edinburgh, that 3-hour Flixbus travel is tiring~~.
+
 ## Travelling to Ascona
 It’s the day. Not conference day, but my travel day. The conference starts on the 23rd, but I’m traveling from Aberdeen on the 22nd (the only option if I don’t want to be late). I booked a taxi from my place to the airport. Looking around, I realised I might have overpacked, I brought my XXL when everyone else had small or medium-sized ones. ~~But hey, I had to maximise my baggage allowance, which, funnily enough, turned out to be just 14kg out of the 23kg limit~~.
 
@@ -46,7 +63,14 @@ Turns out, I was supposed to validate my ticket before boarding, but I completel
 From Locarno, there was supposed to be a free hotel shuttle bus to Monte Verita, but the ETH website’s map wasn’t exactly clear on where to find it. Then I noticed four people with posters and suitcases wandering around, probably going to the same conference as me and looking for the shuttle, too. So, naturally, I followed them ~~like a stalker~~.
 
 After a while, I realised they might be heading somewhere else, so I went back to the train station. Just then, I spotted the Monte Verita shuttle bus, finally! I hopped on and exchanged my entire Italian vocabulary (“Buongiorno” and “Grazie”) with the driver, who seemed friendly and smiley. Ten minutes later, the four people I had been following showed up. Turns out, they were also looking for the shuttle. We introduced ourselves, they are Barbara, Sophia, Olga, and Pau from Heidelberg, Germany. The five of us rode up the steep, winding roads to Monte Verita, chatting and just enjoying the scenic drive.
+
 ## Conference day 0
+<figure>
+  <img
+  src="04.png"
+  alt="Why benchmarking matters">
+  <span style="text-align:center; font-size: 0.75em;"><figcaption>Left to right: view from the stairs, the famous statue and I love Ascona landmark and dinner time </figcaption></span>
+</figure>
 We arrived at around 3 PM (I think we were some of the earliest attendees). After checking in, we were all starving, so we agreed to leave our luggage in our rooms and reunite in 20 minutes to find food. I was staying in the same building as Pau, which was about a 5-minute walk from the main building, while Sophia, Barbara, and Olga were all staying in the main building. When we met up again, Sophia couldn’t join us because she had to prepare for her presentation tomorrow. So, the four of us set off to explore Ascona, chatting about our research along the way.
 
 They mentioned they were from a large computational biology lab with around ~50 people (at the time, I didn’t realise they were from the famous Saez-Rodriguez lab, they kept referring to their PI by his first name, "Julio," and I usually ignore first names when reading papers). The weather was beautiful, but there were a lot of stairs to climb. We didn’t know where to go for food, but luckily, Olga had Swiss roaming, so we followed her lead. We ended up at Coop (a well-known Swiss supermarket) where we grabbed some snacks. Afterward, we spent some time by the lake, just chatting and taking in the view.
@@ -54,7 +78,14 @@ They mentioned they were from a large computational biology lab with around ~50 
 As the clock neared 5 PM, we decided to go back to get ready for the evening’s welcome event. The official conference wouldn’t start until tomorrow, but tonight was all about introductions and networking. The climb back up was exhausting ~~so many stairs~~! Back in my room, I decided to take a quick shower. When I went out of the bathroom, I realised someone else had arrived, it was Alessandro, my roommate. We introduced ourselves, and I found out he was also a second-year PhD student at the University of Lausanne. We chatted for a bit before heading to the drinks and networking event at the main building.
 
 By the time we arrived, my Heidelberg friends were already there, along with many unfamiliar faces. The event was quite informal (mostly introductions and discussions about our research projects). After that, we moved on to dinner. I ended up sitting at a table with Matt Richie, Christof, Aybüge from Turkey, Alessandro, and Justine, who was Christof’s PhD student (at that point, I didn’t realise Christof was a PI). We were all exhausted after the long day, so once dinner was over, we headed back to our rooms to rest.
+
 ## Conference day 1
+<figure>
+  <img
+  src="05.png"
+  alt="Some talks from day 1">
+  <span style="text-align:center; font-size: 0.75em;"><figcaption>Some talks from the first day of conference</figcaption></span>
+</figure>
 Breakfast started from 7:30 AM to 9 AM. During breakfast, I met Yue and Calibria from the University of Sydney. They were Jean’s (one of the organising committee members) postdoc and PhD students, and they were working on some really interesting projects. I also met Salvador, who I initially assumed was a postdoc, but it turned out he was actually a PI. ~~At this point, I figured it might just be safer to assume that everyone was a PI~~.
 
 After breakfast, we headed to the auditorium, where the day began with an introduction and a short film about Monte Verita. I found the film quite interesting, giving us some historical context about Monte Verita. The talks on the first day were excellent, but the one I enjoyed the most was by Jessica Jingyi Li. At one point in my PhD, I had looked into her group’s work, particularly scDesign, so it was exciting to hear her speak in person. Another highlight for me was Sophia’s talk on kinase activity inference. It reminded me of a discussion I had at the start of my PhD with Mike about incorporating phosphorylation information into our analysis and it turned out to be Sophia's work.
@@ -62,11 +93,23 @@ After breakfast, we headed to the auditorium, where the day began with an introd
 The first poster session of the conference took place later that day. I didn’t get the chance to chat with many people, but it was great to see the range of projects everyone was working on. It made me feel less alone in my PhD and benchmarking struggles, seeing others go through similar challenges was oddly reassuring. Afterwards, We had Italian cuisine for dinner. During the meal, I met Jarny from St. Vincent’s Institute. Our conversation took an unexpected turn when I saw the Stemformatics logo on his poster and suddenly realised that we had actually met before, back in 2018 during a phone call for Google Summer of Code. It was a small-world moment that made the evening even more memorable.
 
 ## Conference day 2
+<figure>
+  <img
+  src="06.png"
+  alt="Images from day 2">
+  <span style="text-align:center; font-size: 0.75em;"><figcaption>Some talks from the second day of conference and my poster in the middle</figcaption></span>
+</figure>
 I had my breakfast with Alessandro again, and this time, he introduced me to his friend Marion, who was also in her second year. She had started a bit later than Alessandro, but they were coming from the same lab. All of the talks that day were incredibly interesting. I enjoyed seeing how different researchers approach benchmarking from various perspectives. One talk that I waited and liked was Malte's on **OpenProblems**. I’ve been following their work since the start of my PhD, so it was great to hear more about it in person. It’s exciting to see how the community benchmarking platforms have grown over time. I also appreciate seeing initiatives like Yue’s talk on BenchHub, which I found particularly intriguing. 
 
-What I really enjoyed was hearing different viewpoints and comments, some of which were controversial or a bit different from the mainstream. I think having these senior scientists with these diverse perspectives are required for driving scientific progress, even if they challenge conventional thinking. Later, I had my poster presentation, and some people stopped by to ask about my work. It was a great experience, as I received some valuable, constructive feedback that will help shape my research moving forward. 
+What I really enjoyed was hearing different viewpoints and comments, some of which were controversial or a bit different from the mainstream. I think having these senior scientists with these diverse perspectives are required for driving scientific progress, even if they challenge conventional thinking. Later, I had my poster presentation, and some people stopped by to ask about my work. It was a great experience, as I received some valuable, constructive feedbacks. 
 
 ## Conference day 3
+<figure>
+  <img
+  src="06.png"
+  alt="Views from the island">
+  <span style="text-align:center; font-size: 0.75em;"><figcaption>Some photos I took while in the island</figcaption></span>
+</figure>
 Day 3 was probably one of the most anticipated days of the conference, as it featured the highly awaited excursion to the Brissago Islands on Lake Maggiore. We also had some fantastic talks and a panel discussion lined up. One talk I was particularly looking forward to was Gregory Grant's on "Addressing the Harsh Realities of Omics Benchmarking." I had enjoyed reading his paper on the challenges and best practices in omics benchmarking, so I was excited to hear him speak in person.
 
 The panel discussion was interactive and engaging, where the panelists and the audience discussed the different aspects of benchmarking from the challenges and how they see the future of benchmarking. After the talks, we had lunch, and then it was time to get ready for the island excursion. Unfortunately, Alessandro had to leave because he had his 2nd-year evaluation on Monday, and we didn’t get the chance to say goodbye. We did email each other afterward, and hopefully, we’ll meet again at ISMB/ECCB 2025.
