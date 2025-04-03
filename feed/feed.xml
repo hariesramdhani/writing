@@ -3,18 +3,18 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <title>Blog Title</title>
   <subtitle>This is a longer description about your blog.</subtitle>
-  <link href="https://example.com/eleventy-base-blog/feed/feed.xml" rel="self" />
-  <link href="https://example.com/eleventy-base-blog/" />
+  <link href="https://example.com/writing/feed/feed.xml" rel="self" />
+  <link href="https://example.com/writing/" />
   <updated>2025-04-03T00:00:00Z</updated>
-  <id>https://example.com/eleventy-base-blog/</id>
+  <id>https://example.com/writing/</id>
   <author>
     <name>Your Name</name>
   </author>
   <entry>
     <title>Schengen Visa, Benchmarking and Ascona 2025</title>
-    <link href="https://example.com/eleventy-base-blog/blog/ascona2025/" />
+    <link href="https://example.com/writing/blog/ascona2025/" />
     <updated>2025-04-03T00:00:00Z</updated>
-    <id>https://example.com/eleventy-base-blog/blog/ascona2025/</id>
+    <id>https://example.com/writing/blog/ascona2025/</id>
     <content type="html">&lt;p&gt;(placeholder Image of Ascona 2025)
 In around mid October 2025, Mike (my supervisor) sent me a &lt;a href=&quot;https://x.com/markrobinsonca/status/1845061321076756897&quot;&gt;tweet&lt;/a&gt; that Mark Robinson had posted about Ascona 2025, a conference about benchmarking computational biology methods. &amp;quot;This might interest you,&amp;quot; he said. A conference dedicated to only benchmarking? That&#39;s very niche and new, but also, kind of perfect. I had spent most of the first year of my PhD building a benchmarking tool and performing benchmarking for cell-to-cell communication (Ill refer it as CCC because its to mouthful to say!) inference methods from single-cell RNA sequencing data. And Switzerland? It never crossed my mind to go to Switzerland, so it&#39;d would be a nice experience to travel and to meet like-minded people working on the same kinds of problems. &lt;s&gt;And my first conference and travelling alone? It will be nice to go into the wild and being independent (again)&lt;/s&gt;.&lt;/p&gt;
 &lt;p&gt;(placeholder Image of which method should I use, CellChat, CellTalk, CellConversation, CellYapping)&lt;/p&gt;

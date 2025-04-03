@@ -2,32 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	
 	<url>
-		<loc>https://hariesramdhani.github.io/eleventy-base-blog/blog/ascona2025/</loc>
+		<loc>https://hariesramdhani.github.io/writing/blog/ascona2025/</loc>
 		<lastmod>2025-04-03</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://hariesramdhani.github.io/eleventy-base-blog/about/</loc>
+		<loc>https://hariesramdhani.github.io/writing/about/</loc>
 		<lastmod>2025-04-03</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://hariesramdhani.github.io/eleventy-base-blog/blog/</loc>
+		<loc>https://hariesramdhani.github.io/writing/blog/</loc>
 		<lastmod>2025-04-03</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://hariesramdhani.github.io/eleventy-base-blog/</loc>
+		<loc>https://hariesramdhani.github.io/writing/</loc>
 		<lastmod>2025-04-03</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://hariesramdhani.github.io/eleventy-base-blog/tags/</loc>
+		<loc>https://hariesramdhani.github.io/writing/tags/</loc>
 		<lastmod>2025-04-03</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://hariesramdhani.github.io/eleventy-base-blog/feed/feed.xml</loc>
+		<loc>https://hariesramdhani.github.io/writing/feed/feed.xml</loc>
 		<lastmod>2025-04-03</lastmod>
 	</url>
 </urlset>
