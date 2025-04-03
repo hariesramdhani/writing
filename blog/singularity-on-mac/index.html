@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Singularity on Mac, Reproducible Research and Lesson Learned</title>
+		<meta name="description" content="How to set up Singularity on a Mac using Lima, build portable containers, and overcome common pitfalls like architecture mismatches">
+		<link rel="alternate" href="/writing/feed/feed.xml" type="application/atom+xml" title="Haries&#39; Notes">
+		
+		<style>/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #f8f8f2;
+	background: none;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #272822;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #8292a2;
+}
+
+.token.punctuation {
+	color: #f8f8f2;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+	color: #e6db74;
+}
+
+.token.keyword {
+	color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+/*
+ * New diff- syntax
+ */
+
+pre[class*="language-diff-"] {
+	--eleventy-code-padding: 1.25em;
+	padding-left: var(--eleventy-code-padding);
+	padding-right: var(--eleventy-code-padding);
+}
+.token.deleted {
+	background-color: hsl(0, 51%, 37%);
+	color: inherit;
+}
+.token.inserted {
+	background-color: hsl(126, 31%, 39%);
+	color: inherit;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.token.prefix.inserted,
+.token.prefix.deleted {
+	width: var(--eleventy-code-padding);
+	background-color: rgba(0,0,0,.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+	display: block;
+	margin-left: calc(-1 * var(--eleventy-code-padding));
+	margin-right: calc(-1 * var(--eleventy-code-padding));
+	text-decoration: none; /* override del, ins, mark defaults */
+	color: inherit; /* override del, ins, mark defaults */
+}
+/* This is an arbitrary CSS string added to the bundle */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
+
+/* Defaults */
+:root {
+	--font-family:'Source Sans Pro', -apple-system, system-ui, sans-serif;
+	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+}
+
+/* Theme colors */
+:root {
+	--color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333;
+
+	--background-color: #fff;
+
+	--text-color: var(--color-gray-90);
+	--text-color-link: #082840;
+	--text-color-link-active: #5f2b48;
+	--text-color-link-visited: #17050F;
+
+	--syntax-tab-size: 2;
+}
+
+
+/* Global stylesheet */
+* {
+	box-sizing: border-box;
+}
+
+@view-transition {
+	navigation: auto;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0 auto;
+	font-family: var(--font-family);
+	color: var(--text-color);
+	background-color: var(--background-color);
+}
+html {
+	overflow-y: scroll;
+}
+body {
+	max-width: 60em;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+/* Fluid images via https://www.zachleat.com/web/fluid-images/ */
+img{
+  max-width: 100%;
+}
+img[width][height] {
+  height: auto;
+}
+img[src$=".svg"] {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+video,
+iframe {
+	width: 100%;
+	height: auto;
+}
+iframe {
+	aspect-ratio: 16/9;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+li {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--text-color-link);
+}
+a[href]:visited {
+	color: var(--text-color-link-visited);
+}
+a[href]:hover,
+a[href]:active {
+	color: var(--text-color-link-active);
+}
+
+main,
+footer {
+	padding: 1rem;
+}
+main :first-child {
+	margin-top: 0;
+}
+
+header {
+	border-bottom: 1px dashed var(--color-gray-20);
+}
+
+.links-nextprev {
+	display: flex;
+	justify-content: space-between;
+	gap: .5em 1em;
+	list-style: "";
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+.links-nextprev > * {
+	flex-grow: 1;
+}
+.links-nextprev-next {
+	text-align: right;
+}
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+pre,
+code {
+	font-family: var(--font-family-monospace);
+}
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	-moz-tab-size: var(--syntax-tab-size);
+	-o-tab-size: var(--syntax-tab-size);
+	tab-size: var(--syntax-tab-size);
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	overflow-x: auto;
+}
+code {
+	word-break: break-all;
+}
+
+/* Header */
+header {
+	display: flex;
+	gap: 1em;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1em;
+}
+.home-link {
+	flex-grow: 1;
+	font-size: 1em; /* 16px /16 */
+	font-weight: 700;
+}
+.home-link:link:not(:hover) {
+	text-decoration: none;
+}
+
+/* Nav */
+.nav {
+	display: flex;
+	gap: .5em 1em;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+.nav-item {
+	display: inline-block;
+}
+.nav-item a[href]:not(:hover) {
+	text-decoration: none;
+}
+.nav a[href][aria-current="page"] {
+	text-decoration: underline;
+}
+
+/* Posts list */
+.postlist {
+	list-style: none;
+	padding: 0;
+	padding-left: 1.5rem;
+}
+.postlist-item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	counter-increment: start-from -1;
+	margin-bottom: 1em;
+}
+.postlist-item:before {
+	display: inline-block;
+	pointer-events: none;
+	content: "" counter(start-from, decimal-leading-zero) ". ";
+	line-height: 100%;
+	text-align: right;
+	margin-left: -1.5rem;
+}
+.postlist-date,
+.postlist-item:before {
+	font-size: 0.8125em; /* 13px /16 */
+	color: var(--color-gray-90);
+}
+.postlist-date {
+	word-spacing: -0.5px;
+}
+.postlist-link {
+	font-size: 1.1875em; /* 19px /16 */
+	font-weight: 700;
+	flex-basis: calc(100% - 1.5rem);
+	padding-left: .25em;
+	padding-right: .5em;
+	text-underline-position: from-font;
+	text-underline-offset: 0;
+	text-decoration-thickness: 1px;
+}
+.postlist-item-active .postlist-link {
+	font-weight: bold;
+}
+
+/* Tags */
+.post-tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-transform: capitalize;
+	font-style: italic;
+}
+.postlist-item > .post-tag {
+	align-self: center;
+}
+
+/* Tags list */
+.post-metadata {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: .5em;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.post-metadata time {
+	margin-right: 1em;
+}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		<header>
+			<a href="/writing/" class="home-link">Haries&#39; Notes</a>
+			<nav>
+				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<ul class="nav">
+					<li class="nav-item"><a href="/writing/">Home</a></li>
+					<li class="nav-item"><a href="/writing/blog/">Archive</a></li>
+					<li class="nav-item"><a href="https://hariesramdhani.github.io">About</a></li>
+					<li class="nav-item"><a href="/writing/feed/feed.xml">Feed</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			<heading-anchors>
+				
+<h1 id="singularity-on-mac-reproducible-research-and-lesson-learned">Singularity on Mac, Reproducible Research and Lesson Learned</h1>
+
+<ul class="post-metadata">
+	<li><time datetime="2025-03-03">03 March 2025</time></li>
+	<li><a href="/writing/tags/software/" class="post-tag">software</a>, </li>
+	<li><a href="/writing/tags/tips/" class="post-tag">tips</a></li>
+</ul>
+
+<p>Remember the time when you want to install multiple software to reproduce someone else's research? What does it remind you of? Pain? Exhaustion from hours of Googling and troubleshooting? Only to face the famous &quot;version compatibility&quot; issues even after you're sure everything right according to the tutorial. Ah, the joys of science and its ever-looming &quot;reproducibility crisis&quot;!</p>
+<p>Luckily we have containerisation technology these days! As written on the <a href="https://www.ibm.com/topics/containerization">IBM website</a> &quot;Containerisation is the packaging of software code with just the operating system (OS) libraries and dependencies required to run the code to create a single lightweight executable—called a container—that runs consistently on any infrastructure.&quot;.</p>
+<p>Started as a way to make the deployment process easier, containerisation has emerged as a valuable tool for ensuring reproducible research, so instead of letting the user install the software themselves and make them find the scripts (stored don't know where), giving them this so called 'container' streamline this process.</p>
+<p>Docker and Singularity are among the most popular containerisation platform (Well technically Docker is more popular, haven't heard of Singularity till my PI mentioned it). However since I'm largely working with HPC environments, Singularity is preferred as it's designed for such purpose and more importantly it's open-source (Long live open-source!).</p>
+<p>Singularity is built for Linux, so you have another problem if you're using Windows or Mac, in which you have to use virtual machine (VM) to run it. In this post, I'm going to share my experience dealing with Singularity on my Mac, from installing to building a singularity image file (<code>.sif</code>, end-product, the thing that you share to other people for reproducible research) and the lessons that I learned. So let's dive in.</p>
+<p>As I said, since Singularity is primarily created for Linux, Mac users need to use virtual machines. Several options exist to create virtual machines on Mac, including <a href="https://www.vagrantup.com/">Vagrant</a>, <a href="https://lima-vm.io/">Lima</a> <a href="https://orbstack.dev/%5D">OrbStack</a> (which unfortunately is not very open-source). In my case I'm using Lima as I found it to be straightforward and aligned with the <a href="https://docs.sylabs.io/guides/4.1/admin-guide/installation.html#mac">Singularity installation guide</a>.</p>
+<p>Download <a href="https://brew.sh/">Homebrew</a> if you haven't had it installed</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ /bin/bash <span class="token parameter variable">-c</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="token variable">)</span></span>"</span>
+$ <span class="token punctuation">(</span>echo<span class="token punctuation">;</span> <span class="token builtin class-name">echo</span> <span class="token string">'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'</span><span class="token punctuation">)</span> <span class="token operator">>></span> <span class="token environment constant">$HOME</span>/.profile
+$ <span class="token builtin class-name">eval</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span>/home/linuxbrew/.linuxbrew/bin/brew shellenv<span class="token variable">)</span></span>"</span></code></pre>
+<p>Install Lima</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ brew <span class="token function">install</span> lima</code></pre>
+<p>Running lima is pretty straightforward and it comes with <a href="https://lima-vm.io/docs/templates/">various distros</a> that you can use. In this case we're going to use the default <a href="https://raw.githubusercontent.com/sylabs/singularity/main/examples/lima/singularity-ce.yml">singularity-ce.yml</a> template that is provided in the docs.</p>
+<pre class="language-yml" tabindex="0"><code class="language-yml"><span class="token comment"># SingularityCE on Alma Linux 9</span>
+<span class="token comment"># </span>
+<span class="token comment"># Usage:</span>
+<span class="token comment">#</span>
+<span class="token comment">#   $ limactl start ./singularity-ce.yml</span>
+<span class="token comment">#   $ limactl shell singularity-ce singularity run library://alpine</span>
+
+<span class="token key atrule">images</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">location</span><span class="token punctuation">:</span> <span class="token string">"https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2"</span>
+  <span class="token key atrule">arch</span><span class="token punctuation">:</span> <span class="token string">"x86_64"</span>
+<span class="token punctuation">-</span> <span class="token key atrule">location</span><span class="token punctuation">:</span> <span class="token string">"https://repo.almalinux.org/almalinux/9/cloud/aarch64/images/AlmaLinux-9-GenericCloud-latest.aarch64.qcow2"</span>
+  <span class="token key atrule">arch</span><span class="token punctuation">:</span> <span class="token string">"aarch64"</span>
+
+<span class="token key atrule">mounts</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">location</span><span class="token punctuation">:</span> <span class="token string">"~"</span>
+<span class="token punctuation">-</span> <span class="token key atrule">location</span><span class="token punctuation">:</span> <span class="token string">"/tmp/lima"</span>
+
+<span class="token key atrule">containerd</span><span class="token punctuation">:</span>
+  <span class="token key atrule">system</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">user</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+
+<span class="token key atrule">provision</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">mode</span><span class="token punctuation">:</span> system
+  <span class="token key atrule">script</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+    #!/bin/bash
+    set -eux -o pipefail
+    dnf -y install --enablerepo=epel singularity-ce squashfs-tools-ng</span>
+
+<span class="token key atrule">probes</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">script</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+    #!/bin/bash
+    set -eux -o pipefail
+    if ! timeout 30s bash -c "until command -v singularity >/dev/null 2>&amp;1; do sleep 3; done"; then
+      echo >&amp;2 "singularity is not installed yet"
+      exit 1
+    fi</span>
+  <span class="token key atrule">hint</span><span class="token punctuation">:</span> See "/var/log/cloud<span class="token punctuation">-</span>init<span class="token punctuation">-</span>output.log" in the guest
+
+<span class="token key atrule">message</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+  To run `singularity` inside your lima VM:
+    $ limactl shell  singularity run library://alpine</span></code></pre>
+<p>TLDR; It builds an AlmaLinux and Singularity installed with it</p>
+<p>You can update the template above to include more options, for example since the default will only spare 4gb of memory adding <code>memory: &quot;8GiB&quot;</code> will spare 8 instead of 4, adding <code>writable</code> options below the mount points will let you write files in those locations (do it at your own risk, also mind that if <code>writable</code> not being set to <code>true</code> the files in the mounted directory become <code>read-only</code>)</p>
+<pre class="language-yaml" tabindex="0"><code class="language-yaml"><span class="token punctuation">...</span>
+
+<span class="token key atrule">memory</span><span class="token punctuation">:</span> <span class="token string">"8GiB"</span>
+
+<span class="token key atrule">mounts</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">location</span><span class="token punctuation">:</span> <span class="token string">"~"</span>
+<span class="token key atrule">writable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token punctuation">-</span> <span class="token key atrule">location</span><span class="token punctuation">:</span> <span class="token string">"/tmp/lima"</span>
+<span class="token key atrule">writable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+
+<span class="token punctuation">...</span></code></pre>
+<p>running the command below will start your lima vm (Select <code>Proceed with the current configuration option</code> when prompted)</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ limactl start ./singularity-ce.yml</code></pre>
+<p>When you run the command below, you will see that your <code>singularity-ce</code> instance is already running</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ limactl list</code></pre>
+<p>To stop and remove/delete the instance you can use the following command respectively</p>
+<pre><code>$ limactl stop singularity-ce
+$ limactl remove singularity-ce
+$ limactl delete singularity-ce
+</code></pre>
+<p>Now we got our <code>singularity-ce</code> running, next step is to create the singularity container, let's say I want to create container that contains softwares from different programming language. The command below will let you enter the VM interactively</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ limactl shell singularity-ce
+<span class="token punctuation">[</span>user@lima-singularity-ce<span class="token punctuation">]</span>$ </code></pre>
+<p>You can also directly run singularity, for example the command below will run the Alpine Linux image from the Sylabs cloud library</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ limactl shell singularity-ce singularity run library://alpine</code></pre>
+<p>Since we will be creating the Singularity container image ourselves, we won't be downloading it from the Sylabs cloud library but instead we will write something called <code>.def</code> file. <code>.def</code> file or definition file is a recipe to build container image with Singularity, it's just a Singularity headers and bunch of shell commands that will be executed to create the image container. This guides from <a href="https://docs.sylabs.io/guides/latest/user-guide/definition_files.html">Singularity docs</a> is very helpful in explaining what we can put in the <code>.def</code> file.</p>
+<p>Below is a minimal script to create a container with <code>pandas</code> and <code>seaborn</code> installed</p>
+<p><code>test.def</code></p>
+<pre class="language-def" tabindex="0"><code class="language-def">Bootstrap: docker
+From: ubuntu:22.04
+
+%files
+	/Users/hariesramdhani/Documents/requirements.txt /requirements.txt
+
+%post
+	export DEBIAN_FRONTEND=noninteractive
+	
+	apt-get clean all && \
+	apt-get update && \
+	apt-get upgrade -y && \
+	apt-get install -y \
+	autoconf \
+	autogen \
+	build-essential \
+	curl \
+	libbz2-dev \
+	libcurl4-openssl-dev \
+	libssl-dev \
+	libxml2-dev \
+	zlib1g-dev \
+	python3-dev \
+	python3-pip
+
+	pip install -r /requirements.txt</code></pre>
+<p><code>/Users/hariesramdhani/Documents/requirements.txt</code></p>
+<pre class="language-txt" tabindex="0"><code class="language-txt">pandas
+seaborn</code></pre>
+<p>To create image from the above <code>.def</code> file, all you have to do is run the following command (make sure you already activated the interactive mode, notice the <code>[user@lima-singularity-ce]</code> before the $)</p>
+<pre><code>[user@lima-singularity-ce]$ singularity build --fakeroot test.sif test.def
+</code></pre>
+<p>The command below build the <code>test.sif</code> from the <code>test.def</code> and you either need to run it as <code>sudo</code> or using the <code>--fakeroot</code> argument. Usually it fails when I'm using <code>sudo</code>, this is why I'm using <code>--fakeroot</code>. The <code>.sif</code> file will appear once you successfully build it.</p>
+<p>Well it seems easy and straightforward, doesn't it? It does, but in practice, it can be more complicated when you try to build a more complex system, like for example my <code>.def</code> file will contain different softwares from different programming language different way to install and &quot;different&quot; everything on an ARM64 M2 Macbook. Here I am sharing the lessons I learned when building singularity image for my project.</p>
+<p><strong>My ARM != Your AMD</strong>
+Mac transitioned to Apple silicon which means the CPU architecture of your Macbook M series is ARM64. Why is this information important? The thing with Singularity is that it's not architecture agnostic, so when you build your singularity image file on your Mac (ARM64) and try to run it on an AMD64 HPC you will get the following error;</p>
+<pre><code>$ singularity run test.sif
+FATAL:   could not open image /path/to/dir/test.sif: the image's architecture (arm64) could not run on the host's (amd64)
+</code></pre>
+<p>Can't we just the create the Alpine Linux on our Lima VM to be AMD64 in the first place? Yes, technically by adding the <code>arch</code> parameter and set it to <code>x86_64</code> we will make our Lima VM architecture to be AMD64.</p>
+<pre class="language-yaml" tabindex="0"><code class="language-yaml"><span class="token punctuation">...</span>
+
+<span class="token key atrule">arch</span><span class="token punctuation">:</span> <span class="token string">"x86_64"</span>
+
+<span class="token key atrule">images</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">location</span><span class="token punctuation">:</span> <span class="token string">"https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2"</span>
+  <span class="token key atrule">arch</span><span class="token punctuation">:</span> <span class="token string">"x86_64"</span>
+
+<span class="token punctuation">...</span></code></pre>
+<p>This sounds straightforward and expected to be working but it didn't for me, but luckily after some hacking here and there I found a getaway! What I did for my case was to build an Ubuntu vm then install Singularity inside it.</p>
+<p>Can simply create a new instance using the default <code>ubuntu-lts</code> and when prompted with option don't forget to update the yaml file</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ limactl start ubuntu-lts</code></pre>
+<p>If the default editor is vim, press <code>i</code> to insert, edit it to add the following and <code>esc</code> followed <code>w+q</code> and <code>enter</code> to save</p>
+<pre class="language-yml" tabindex="0"><code class="language-yml"><span class="token punctuation">...</span>
+
+<span class="token comment"># Change the architecture</span>
+<span class="token key atrule">arch</span><span class="token punctuation">:</span> <span class="token string">"x86_64"</span>
+
+<span class="token comment"># Upgrade the memory</span>
+<span class="token key atrule">memory</span><span class="token punctuation">:</span> <span class="token string">"8GiB"</span>
+<span class="token key atrule">mounts</span><span class="token punctuation">:</span>
+
+<span class="token comment"># Make the mounted point writable</span>
+<span class="token punctuation">-</span> <span class="token key atrule">location</span><span class="token punctuation">:</span> <span class="token string">"~"</span>
+  <span class="token key atrule">writable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token punctuation">-</span> <span class="token key atrule">location</span><span class="token punctuation">:</span> <span class="token string">"/tmp/lima"</span>
+  <span class="token key atrule">writable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+
+<span class="token punctuation">...</span></code></pre>
+<p>It may take more time than the usual to create the instance (most likely because of the different architecture). Once you're done, enter the interactive mode to install singularity.</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ singularity shell ubuntu-lts</code></pre>
+<p>And run the following code to install Singularity and its dependencies, change the GO version (<code>1.13.15</code>) and Singularity version (<code>v3.6.3</code>) according to your liking, as seen in the <a href="https://github.com/apptainer/singularity/issues/5099#issuecomment-814563244">installation guide</a>)</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> update <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> build-essential <span class="token punctuation">\</span>
+libseccomp-dev pkg-config squashfs-tools cryptsetup
+
+<span class="token function">sudo</span> <span class="token function">rm</span> <span class="token parameter variable">-r</span> /usr/local/go
+
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">VERSION</span><span class="token operator">=</span><span class="token number">1.13</span>.15 <span class="token assign-left variable">OS</span><span class="token operator">=</span>linux <span class="token assign-left variable">ARCH</span><span class="token operator">=</span>amd64  <span class="token comment"># change this as you need</span>
+
+<span class="token function">wget</span> <span class="token parameter variable">-O</span> /tmp/go<span class="token variable">${VERSION}</span><span class="token builtin class-name">.</span><span class="token variable">${OS}</span>-<span class="token variable">${ARCH}</span>.tar.gz https://dl.google.com/go/go<span class="token variable">${VERSION}</span><span class="token builtin class-name">.</span><span class="token variable">${OS}</span>-<span class="token variable">${ARCH}</span>.tar.gz <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+<span class="token function">sudo</span> <span class="token function">tar</span> <span class="token parameter variable">-C</span> /usr/local <span class="token parameter variable">-xzf</span> /tmp/go<span class="token variable">${VERSION}</span><span class="token builtin class-name">.</span><span class="token variable">${OS}</span>-<span class="token variable">${ARCH}</span>.tar.gz
+
+<span class="token builtin class-name">echo</span> <span class="token string">'export GOPATH=${HOME}/go'</span> <span class="token operator">>></span> ~/.bashrc <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin'</span> <span class="token operator">>></span> ~/.bashrc <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+<span class="token builtin class-name">source</span> ~/.bashrc
+
+<span class="token function">curl</span> <span class="token parameter variable">-sfL</span> https://install.goreleaser.com/github.com/golangci/golangci-lint.sh <span class="token operator">|</span>
+<span class="token function">sh</span> <span class="token parameter variable">-s</span> -- <span class="token parameter variable">-b</span> <span class="token variable"><span class="token variable">$(</span>go <span class="token function">env</span> GOPATH<span class="token variable">)</span></span>/bin v1.21.0
+
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> <span class="token variable">${GOPATH}</span>/src/github.com/sylabs <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+<span class="token builtin class-name">cd</span> <span class="token variable">${GOPATH}</span>/src/github.com/sylabs <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+<span class="token function">git</span> clone https://github.com/sylabs/singularity.git <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+<span class="token builtin class-name">cd</span> singularity
+
+<span class="token function">git</span> checkout v3.6.3
+
+<span class="token builtin class-name">cd</span> <span class="token variable">${GOPATH}</span>/src/github.com/sylabs/singularity <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+./mconfig <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+<span class="token builtin class-name">cd</span> ./builddir <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+<span class="token function">make</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+<span class="token function">sudo</span> <span class="token function">make</span> <span class="token function">install</span>
+
+singularity version</code></pre>
+<p>I tried to <code>run</code> the singularity image file that I <code>built</code> using the above VM on an AMD64 HPC and it works successfully, the <code>build</code>ing process however takes longer time than usual!</p>
+<p><strong>NIH HPC Singularity def files are your friend</strong>
+Whether you want to create a cool, complex def file or need to know how to install some stuff (yes R packages I'm looking at you!), you can always refer to <a href="https://github.com/NIH-HPC/singularity-def-files/tree/master">NIH HPC Singularity def files collection</a> on GitHub (as there aren't many on Google search), they have it all! Just use the Github advanced search <code>repo:NIH-HPC/singularity-def-files {keyword}</code> to find specific type of commands, also technically you can find more by searching all over GitHub with the <code>path:*.def &quot;Bootstrap:&quot;</code> search keyword, but the NIH HPC was suffice for my work.</p>
+<p><strong>The power  of <code>script</code></strong>
+Building singularity (<code>singularity build</code>) image file with a complex <code>.def</code> file may take a while (by a while I meant a whole hour) and when you run the command thousands of lines of installation progress appear (Yes R packages I'm looking at you again), troubleshooting can be very hard when you have to scroll through all of those thousands of lines and looking for where the error occurred. Fortunately we have <code>script</code> command on linux, <code>script {filename_to_save_the_logs}</code> will record all of the things that are written on the terminal whether it's an output, an error message or literally anything, it then will save it for you when you run the <code>exit</code> command. You can then open it using your favourite text editor and <code>CTRL+F</code> or <code>command+F</code>.</p>
+<p><strong>Captain we need more memory</strong>
+Setting up the right <code>memory</code> is very vital as you don't want your vm to hang when building your Singularity image files. Happened several times for me before I decided to increase the memory size.</p>
+<p><strong>Escaping R and its package dependency hell</strong>
+I had a very hard time installing R and some of its packages, what worked for me was to follow the recipes from <a href="https://github.com/NIH-HPC/singularity-def-files/tree/master">NIH HPC Singularity def files collection</a> that contain the keyword  <code>Rscript</code>, <code>install_github</code>.  While the installation worked it didn't solve the dependencies problem especially when installing the package using <code>install_github</code> and that package requires Bioconductor packages, earlier today I had a supervisory meeting with Mike (my PI) and he came up with this nice idea to actually scrape the <code>DESCRIPTION</code> file for each package from the Github repo and install them first before installing the package. I'll show how I do it on a separate blog post!</p>
+<p>So that concludes my writing, hopefully this can be helpful for all of the researchers that are going to the same thing.</p>
+
+<ul class="links-nextprev"><li class="links-nextprev-next">Next →<br><a href="/writing/blog/ascona2025/">Schengen Visa, Benchmarking and Ascona 2025</a></li>
+</ul>
+
+			</heading-anchors>
+		</main>
+
+		<footer>
+			<p><em>Built with <a href="https://www.11ty.dev/">Eleventy v3.0.0</a></em></p>
+		</footer>
+
+		<!-- This page `/blog/singularity-on-mac/` was built on 2025-04-03T17:10:59.633Z -->
+		<script type="module" src="/writing/dist/xbxy_EL6cU.js"></script>
+	</body>
+</html>
